@@ -1,31 +1,42 @@
 import pygame
 import random
-import sys
-import math_question
-import collision
 
-def get_numbers():
-    numbers = math_question.render_math_question()
-    first_number = numbers[0]
-    second_number = numbers[1]
 
-    return [first_number, second_number]
+def equation_start_pos():
+    global equation_x_pos
+    global equation_y_pos
 
-def starting_text_pos():
-    x_pos = random.randint(50, 750)
-    y_pos = 0
+    equation_x_pos = random.randint(50, 700)
+    equation_y_pos = 0
 
-    return [x_pos, y_pos]
 
-def main() -> None:
-    pygame.init()
+def get_equation():
+    global first_number
+    global second_number
+    global solution
+
+    first_number = random.randint(1, 100)
+    second_number = random.randint(1, 100)
+    solution = first_number + second_number
+
+
+def main():
+    global equation_y_pos
+
     screen = pygame.display.set_mode((800, 600))
-    font = pygame.font.SysFont(None, 36)
+    FONT_SIZE = 36
+    font = pygame.font.SysFont(None, FONT_SIZE)
     clock = pygame.time.Clock()
+    input_box = pygame.Rect(width=screen.get_width(), height=(FONT_SIZE + 6))
+    pygame.draw.rect(screen, (0, 0, 0), input_box)
 
-    positions = starting_text_pos()
-    text_x_pos = positions[0]
-    text_y_pos = positions[1]
+    FRAME_LIMITER = 60
+    ANSWER_TIME = 5
+
+    equation_start_pos()
+    get_equation()
+
+    attempt = ""
 
     running = True
 
@@ -34,19 +45,39 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    attempt = attempt[:-1]
+                elif event.unicode.isdigit():
+                    attempt += event.unicode
+                    print(attempt + " =? " + str(solution))
+
+        if equation_y_pos >= screen.get_height() or attempt == str(solution):
+            if attempt == str(solution):
+                attempt = ""
+
+            equation_start_pos()
+            get_equation()
+
         screen.fill((0, 0, 0))
 
-        text = font.render(f"{get_numbers()[0]} + {get_numbers()[1]}", True, (255, 255, 255))
-        screen.blit(text, (text_x_pos, text_y_pos))
-        text_y_pos += 1
-        
+        attempt_text = font.render(attempt, True, (255, 255, 0))
+        screen.blit(
+            attempt_text, ((screen.get_width() / 5), (screen.get_height() - 40))
+        )
+
+        equation = font.render(
+            f"{first_number} + {second_number}", True, (255, 255, 255)
+        )
+        screen.blit(equation, (equation_x_pos, equation_y_pos))
+        equation_y_pos += (screen.get_height() / FRAME_LIMITER) / ANSWER_TIME
+
         pygame.display.update()
 
-        if collision.check_collision(text_y_pos, screen.get_height()):
-            get_numbers()
-
-        clock.tick(60)
+        clock.tick(FRAME_LIMITER)
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    pygame.init()
+    main()
+    pygame.quit()
