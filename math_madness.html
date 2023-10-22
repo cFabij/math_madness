@@ -1,0 +1,66 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Madness</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css"
+    />
+
+    <script src="./src/game.js" defer type="module"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <ul class="nav justify-content-between mt-2">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="../">Home</a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="https://github.com/cFabij"
+            target="_blank"
+            rel="noopener noreferer"
+            ><i class="bi bi-github"></i
+          ></a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <div class="border border-black bg-dark-subtle">
+          <canvas id="gameCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="ms-5">
+          Time: <span class="text-danger" id="timer"></span>
+          <br />
+          Current Score: <span id="score"></span>
+          <br \ />
+          Highscore:
+          <span id="highscore"></span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div>
+          <span class="fw-bold">Answer:</span>
+          <input
+            class="border border-success mt-3 ms-3"
+            id="answerInput"
+            type="text"
+            autofocus
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
