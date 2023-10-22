@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (confirm("Game over. Press okay to restart.")) {
           window.location = "./math_madness.html";
+        } else {
+          clearInterval(interval);
         }
       }
     }, 10);
