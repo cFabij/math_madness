@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const clock = document.getElementById("timer");
   const scoreField = document.getElementById("score");
   const highscore = document.getElementById("highscore");
+  const startButton = document.getElementById("start");
   let currentHighscore = 0;
   let score = 0;
   let time = 60;
@@ -122,5 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  startGame();
+  startButton.addEventListener("click", function () {
+    input.focus();
+    startGame();
+  });
 });
