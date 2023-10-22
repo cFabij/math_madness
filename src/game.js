@@ -105,11 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (score > currentHighscore) {
           localStorage.setItem("math_highscore", score);
         }
-        if (confirm("Game over. Press okay to restart.")) {
-          window.location = "./math_madness.html";
-        } else {
-          clearInterval(interval);
-        }
+        clearInterval(interval);
+        alert("Game over. Press Button to restart.");
       }
     }, 10);
   }
